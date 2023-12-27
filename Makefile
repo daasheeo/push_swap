@@ -6,7 +6,7 @@
 #    By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:58:28 by jesmunoz          #+#    #+#              #
-#    Updated: 2023/12/27 09:49:32 by jesmunoz         ###   ########.fr        #
+#    Updated: 2023/12/27 13:08:57 by jesmunoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ BONUS_NAME	=	checker
 #------------------------------------------------------------------------------#
 #---------------------------------INSTRUCTIONS---------------------------------#
 #------------------------------------------------------------------------------#
-CC			= 	gcc	-Wall -Wextra -Werror -MMD -g
+CC			= 	gcc	-Wall -Wextra -Werror -MMD -g -I${INCLUDE}
 RM			= 	rm -rf
 
 #------------------------------------------------------------------------------#
@@ -56,41 +56,40 @@ BONUS_STK_OP_DIR	=	bonus/stack_operations
 BONUS_UTILS_DIR		= 	bonus/utils
 
 OBJ_DIR				= 	obj
-BONUS_OBJ_DIR		= 	obj_bonus
-INCLUDE 			=   includes
+INCLUDE 			=   ./includes
 #------------------------------------------------------------------------------#
 #-----------------------------------FILES--------------------------------------#
 #------------------------------------------------------------------------------#
 
-SRC_FILES   		= 	$(SRC_DIR)/main.c \
-					$(INPUT_DIR)/check_params.c \
-					$(CORE_DIR)/cost.c $(CORE_DIR)/execute_cheapest_move.c $(CORE_DIR)/position.c \
-					$(CORE_DIR)/sort_path.c $(CORE_DIR)/sort_three.c $(CORE_DIR)/sort.c \
-					$(MOVES_DIR)/push_stack.c $(MOVES_DIR)/reverse_rotate_stack.c \
-					$(MOVES_DIR)/rotate_stack.c $(MOVES_DIR)/swap_stack.c \
-					$(STK_OP_DIR)/check_stack.c $(STK_OP_DIR)/create_stack.c $(STK_OP_DIR)/validate_stack.c \
-					$(STK_OP_DIR)/delete_stack.c $(STK_OP_DIR)/index_stack.c \
-					$(UTILS_DIR)/error.c $(UTILS_DIR)/free.c $(UTILS_DIR)/numbers.c \
-					$(UTILS_DIR)/split.c $(UTILS_DIR)/strings.c $(UTILS_DIR)/validators.c \
-					$(UTILS_DIR)/check_duplicated.c \
+SRC_FILES   		= 	${SRC_DIR}/main.c \
+					${INPUT_DIR}/check_params.c \
+					${CORE_DIR}/cost.c ${CORE_DIR}/execute_cheapest_move.c ${CORE_DIR}/position.c \
+					${CORE_DIR}/sort_path.c ${CORE_DIR}/sort_three.c ${CORE_DIR}/sort.c \
+					${MOVES_DIR}/push_stack.c ${MOVES_DIR}/reverse_rotate_stack.c \
+					${MOVES_DIR}/rotate_stack.c ${MOVES_DIR}/swap_stack.c \
+					${STK_OP_DIR}/check_stack.c ${STK_OP_DIR}/create_stack.c ${STK_OP_DIR}/validate_stack.c \
+					${STK_OP_DIR}/delete_stack.c ${STK_OP_DIR}/index_stack.c \
+					${UTILS_DIR}/error.c ${UTILS_DIR}/free.c ${UTILS_DIR}/numbers.c \
+					${UTILS_DIR}/split.c ${UTILS_DIR}/strings.c ${UTILS_DIR}/validators.c \
+					${UTILS_DIR}/check_duplicated.c \
 
-SRC_BONUS_FILES 	=	$(SRC_BONUS_DIR)/checker.c \
-					$(BONUS_INPUT_DIR)/check_instructions.c $(BONUS_INPUT_DIR)/check_params.c \
-					$(BONUS_MOVES_DIR)/push_stack.c $(BONUS_MOVES_DIR)/reverse_rotate_stack.c \
-					$(BONUS_MOVES_DIR)/rotate_stack.c $(BONUS_MOVES_DIR)/swap_stack.c \
-					$(BONUS_OP_DIR)/execute.c \
-					$(BONUS_READER_DIR)/get_next_line.c $(BONUS_READER_DIR)/get_next_line_utils.c \
-					$(BONUS_STK_OP_DIR)/create_stack.c $(BONUS_STK_OP_DIR)/validate_stack.c \
-					$(BONUS_STK_OP_DIR)/delete_stack.c $(BONUS_STK_OP_DIR)/check_stack.c \
-					$(BONUS_STK_OP_DIR)/index_stack.c \
-					$(BONUS_UTILS_DIR)/error.c $(BONUS_UTILS_DIR)/free.c \
-					$(BONUS_UTILS_DIR)/split.c $(BONUS_UTILS_DIR)/strings.c $(BONUS_UTILS_DIR)/validators.c \
-					$(BONUS_UTILS_DIR)/check_duplicated.c \
+SRC_BONUS_FILES 	=	${SRC_BONUS_DIR}/checker.c \
+					${BONUS_INPUT_DIR}/check_instructions.c ${BONUS_INPUT_DIR}/check_params.c \
+					${BONUS_MOVES_DIR}/push_stack.c ${BONUS_MOVES_DIR}/reverse_rotate_stack.c \
+					${BONUS_MOVES_DIR}/rotate_stack.c ${BONUS_MOVES_DIR}/swap_stack.c \
+					${BONUS_OP_DIR}/execute.c \
+					${BONUS_READER_DIR}/get_next_line.c ${BONUS_READER_DIR}/get_next_line_utils.c \
+					${BONUS_STK_OP_DIR}/create_stack.c ${BONUS_STK_OP_DIR}/validate_stack.c \
+					${BONUS_STK_OP_DIR}/delete_stack.c ${BONUS_STK_OP_DIR}/check_stack.c \
+					${BONUS_STK_OP_DIR}/index_stack.c \
+					${BONUS_UTILS_DIR}/error.c ${BONUS_UTILS_DIR}/free.c \
+					${BONUS_UTILS_DIR}/split.c ${BONUS_UTILS_DIR}/strings.c ${BONUS_UTILS_DIR}/validators.c \
+					${BONUS_UTILS_DIR}/check_duplicated.c \
 
 OBJ			=	$(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
-BONUS_OBJ	=	$(patsubst %.c, $(BONUS_OBJ_DIR)/%.o, $(SRC_BONUS_FILES))
-DEP			= 	$(addsuffix .d, $(basename $(OBJ)))
-BONUX_DEP	= 	$(addsuffix .d, $(basename $(BONUS_OBJ)))
+BONUS_OBJ	=	$(patsubst %.c, $(OBJ_DIR)/%.o, $(SRC_BONUS_FILES))
+DEP			= 	$(addsuffix .d, $(basename $(SRC_FILES)))
+BONUS_DEP	= 	$(addsuffix .d, $(basename $(SRC_BONUS_FILES)))
 #------------------------------------------------------------------------------#
 #---------------------------------DEPENDENCIES---------------------------------#
 #------------------------------------------------------------------------------#
@@ -112,31 +111,34 @@ all:
 	@echo "  \033[0m▄████▀      ████████▀   ▄████████▀    ███    █▀     ▄████████▀   ▀███▀███▀    ███    █▀   ▄████▀     " 
 	@$(MAKE) $(NAME)
 
-$(OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c Makefile
 	@mkdir -p $(dir $@)
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
 	@echo  "${WHITE}|${BLUE} File Name: ${BROWN}$(notdir $<)"
 	@echo  "${WHITE}|${CYAN} Path:      ${YELLOW}$(dir $<)"
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
-	@$(CC) -I./$(INCLUDE) -c $< -o $@
+	@$(CC) -c $< -o $@
+
+-include $(DEP)
 
 $(NAME):	$(OBJ)
 	@echo
 	@echo "${ITALIC}${BOLD}${MAGENTA}+---------------------------------------------+${DEF_COLOR}"
 	@echo "${ITALIC}${BOLD}${MAGENTA}|${BLUE} Compiling ${NAME}...${MAGENTA}                      |${DEF_COLOR}"
 	@echo "${ITALIC}${BOLD}${MAGENTA}+---------------------------------------------+${DEF_COLOR}"
-	@$(CC) $(OBJ) $(CUNIT_LNK) -o $(NAME)
+	@$(CC) $(OBJ) $(CUNIT_LNK) -o $(NAME) 
 	@echo "\n${BLUE} ◎ $(GREEN)$(NAME) compiled successfully ${BLUE}◎$(DEF_COLOR)\n"
 
--include $(DEP)
 
-$(BONUS_OBJ_DIR)/%.o: %.c
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
 	@echo  "${WHITE}|${BLUE} File Name: ${BROWN}$(notdir $<)"
 	@echo  "${WHITE}|${CYAN} Path:      ${YELLOW}$(dir $<)"
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
-	@$(CC) -I./$(INCLUDE) -c $< -o $@
+	@${CC} -c $< -o $@
+
+-include $(BONUS_DEP)
 
 bonus:	$(BONUS_OBJ) 
 	@echo
@@ -146,11 +148,9 @@ bonus:	$(BONUS_OBJ)
 	@$(CC) $(BONUS_OBJ) $(CUNIT_LNK) -o $(BONUS_NAME)
 	@echo "\n${BLUE} ◎ $(GREEN)$(BONUS_NAME) compiled successfully ${BLUE}◎$(DEF_COLOR)\n"
 
--include $(BONUS_DEP)
-
 clean:
+	@${RM} ${OBJ} ${DEP} ${BONUS_DEP} 
 	@$(RM) ./$(OBJ_DIR)
-	@$(RM) ./$(BONUS_OBJ_DIR)
 	@echo "\n${BLUE} ◎ $(RED)All objects cleaned successfully ${BLUE}◎$(DEF_COLOR)\n"
 
 fclean: clean
