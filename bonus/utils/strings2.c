@@ -6,7 +6,7 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 13:33:26 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/28 13:49:52 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2023/12/28 14:28:37 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ void	*ft_memcpy(void *dst, void *src, size_t n)
 	}
 	return ((void *)cdest);
 }
-

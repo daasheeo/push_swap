@@ -6,7 +6,7 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 10:18:23 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/28 14:19:45 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2023/12/28 14:28:32 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@ char	*join_args(int argc, char **argv)
 
 	i = 1;
 	joined = ft_strdup("");
+	if (!joined)
+		exit_error(NULL, NULL);
 	while (i < argc)
 	{
 		joined = ft_strjoin(joined, argv[i]);
+		if (!joined)
+			exit_error(NULL, NULL);
 		joined = ft_strjoin(joined, " ");
+		if (!joined)
+			exit_error(NULL, NULL);
 		i++;
 	}
 	return (joined);
@@ -31,13 +37,13 @@ char	*join_args(int argc, char **argv)
 
 int	ft_check_duplicated(char **argv, int argc)
 {
-	char	*joined;
 	char	**tokens;
 	int		i;
 	int		j;
 
-	joined = join_args(argc, argv);
-	tokens = ft_split(joined, ' ');
+	tokens = ft_split(join_args(argc, argv), ' ');
+	if (!tokens)
+		exit_error(NULL, NULL);
 	i = 0;
 	while (tokens[i])
 	{
@@ -46,7 +52,6 @@ int	ft_check_duplicated(char **argv, int argc)
 		{
 			if (i != j && ft_strcmp(tokens[i], tokens[j]) == 0)
 			{
-				free(joined);
 				free_lst_memory(tokens);
 				return (1);
 			}
@@ -54,8 +59,6 @@ int	ft_check_duplicated(char **argv, int argc)
 		}
 		i++;
 	}
-	free(joined);
 	free_lst_memory(tokens);
 	return (0);
 }
-
