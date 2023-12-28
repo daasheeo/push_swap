@@ -6,7 +6,7 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 09:52:56 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/27 11:50:56 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:21:06 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 		return (0);
 	if (!ft_check_parameters(argv, argc) || argv[1][0] == '\0')
 		exit_error(NULL, NULL);
-	//atexit(print_report);
 	stack_b = NULL;
 	stack_a = ft_create_stack(argv, argc);
 	stack_size = stk_size(stack_a);
