@@ -6,7 +6,7 @@
 #    By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/08 09:58:28 by jesmunoz          #+#    #+#              #
-#    Updated: 2023/12/28 13:39:44 by jesmunoz         ###   ########.fr        #
+#    Updated: 2024/01/03 12:36:00 by jesmunoz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,20 +78,20 @@ SRC_FILES   		= 	${SRC_DIR}/main.c \
 					${MOVES_DIR}/rotate_stack.c ${MOVES_DIR}/swap_stack.c \
 					${STK_OP_DIR}/check_stack.c ${STK_OP_DIR}/create_stack.c ${STK_OP_DIR}/validate_stack.c \
 					${STK_OP_DIR}/delete_stack.c ${STK_OP_DIR}/index_stack.c \
-					${UTILS_DIR}/error.c ${UTILS_DIR}/free.c ${UTILS_DIR}/numbers.c \
+					${UTILS_DIR}/error.c ${UTILS_DIR}/numbers.c \
 					${UTILS_DIR}/split.c ${UTILS_DIR}/strings.c ${UTILS_DIR}/validators.c \
-					${UTILS_DIR}/check_duplicated.c \
+					${UTILS_DIR}/check_duplicated.c $(UTILS_DIR)/strings2.c \
 
 SRC_BONUS_FILES 	=	${SRC_BONUS_DIR}/checker.c \
 					${BONUS_INPUT_DIR}/check_instructions.c ${BONUS_INPUT_DIR}/check_params.c \
 					${BONUS_MOVES_DIR}/push_stack.c ${BONUS_MOVES_DIR}/reverse_rotate_stack.c \
 					${BONUS_MOVES_DIR}/rotate_stack.c ${BONUS_MOVES_DIR}/swap_stack.c \
 					${BONUS_OP_DIR}/execute.c \
-					${BONUS_READER_DIR}/get_next_line.c ${BONUS_READER_DIR}/get_next_line_utils.c \
+					${BONUS_READER_DIR}/get_next_line.c \
 					${BONUS_STK_OP_DIR}/create_stack.c ${BONUS_STK_OP_DIR}/validate_stack.c \
 					${BONUS_STK_OP_DIR}/delete_stack.c ${BONUS_STK_OP_DIR}/check_stack.c \
 					${BONUS_STK_OP_DIR}/index_stack.c \
-					${BONUS_UTILS_DIR}/error.c ${BONUS_UTILS_DIR}/free.c \
+					${BONUS_UTILS_DIR}/error.c \
 					${BONUS_UTILS_DIR}/split.c ${BONUS_UTILS_DIR}/strings.c ${BONUS_UTILS_DIR}/validators.c \
 					${BONUS_UTILS_DIR}/check_duplicated.c $(BONUS_UTILS_DIR)/strings2.c \
 
@@ -121,8 +121,6 @@ $(OBJ_DIR)/%.o: %.c Makefile
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
 	@$(CC) -c $< -o $@
 
--include $(DEP)
-
 $(NAME):	$(OBJ)
 	@echo
 	@echo "${ITALIC}${BOLD}${MAGENTA}+---------------------------------------------+${DEF_COLOR}"
@@ -131,6 +129,7 @@ $(NAME):	$(OBJ)
 	@$(CC) $(OBJ) $(CUNIT_LNK) -o $(NAME) 
 	@echo "\n${BLUE} ◎ $(GREEN)$(NAME) compiled successfully ${BLUE}◎$(DEF_COLOR)\n"
 
+-include $(DEP)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
@@ -140,8 +139,6 @@ $(OBJ_DIR)/%.o: %.c
 	@echo  "${WHITE}+---------------------------------------+${DEF_COLOR}"
 	@${CC} -c $< -o $@
 
--include $(BONUS_DEP)
-
 $(BONUS_NAME):	$(BONUS_OBJ) 
 	@echo
 	@echo "${ITALIC}${BOLD}${MAGENTA}+---------------------------------------------+${DEF_COLOR}"
@@ -150,7 +147,10 @@ $(BONUS_NAME):	$(BONUS_OBJ)
 	@$(CC) $(BONUS_OBJ) $(CUNIT_LNK) -o $(BONUS_NAME)
 	@echo "\n${BLUE} ◎ $(GREEN)$(BONUS_NAME) compiled successfully ${BLUE}◎$(DEF_COLOR)\n"
 
+-include $(BONUS_DEP)
+
 bonus: $(BONUS_NAME)
+
 clean:
 	@${RM} ${OBJ} ${DEP} ${BONUS_DEP} 
 	@$(RM) ./$(OBJ_DIR)

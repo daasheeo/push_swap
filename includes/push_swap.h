@@ -6,7 +6,7 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 09:54:55 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/26 16:06:13 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2024/01/03 10:04:29 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 //# include "/Users/jesmunoz/.brew/Cellar/cunit/2.1-3/include/CUnit/Basic.h"
 //# include "/Users/jesmunoz/.brew/Cellar/cunit/2.1-3/include/CUnit/CUnit.h"
-# define _GNU_SOURCE
 # include "CUnit/Basic.h"
 # include "CUnit/CUnit.h"
-//# include "memory_tracker.h"
-# include "utils.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
@@ -75,7 +76,6 @@ int					ft_strcmp(const char *arg1, const char *arg2);
 void				ft_swap(t_stack **stack);
 char				**ft_split(char *s, char c);
 void				free_lst_memory(char **str);
-void				free_tokens(char ***tokens, int argc);
 t_stack				*stk_last(t_stack *stack);
 t_stack				*stk_new(int value);
 t_stack				*stk_pop_last(t_stack **stack);
@@ -86,7 +86,10 @@ t_stack				*stk_top(t_stack *stack);
 int					stk_is_empty(t_stack *stack);
 void				stk_clear(t_stack **stack);
 void				exit_error(t_stack **stack_a, t_stack **stack_b);
-int					compare_tokens(char **tokens_i, char **tokens_j);
-void				print_report(void);
+char				*ft_strjoin(char *s1, char *s2);
+char				*ft_strdup(char *s1);
+int					len(void *data);
+int					ft_is_sign(char c);
+int					ft_is_digit(char c);
 
 #endif

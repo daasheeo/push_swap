@@ -6,65 +6,59 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 10:18:23 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/26 16:03:00 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2024/01/02 10:05:59 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <push_swap.h>
 
-static char	***allocate_tokens(int argc)
+static char	*join_args(int argc, char **argv)
 {
-	char	***tokens;
-
-	tokens = malloc(sizeof(char **) * (argc + 1));
-	if (!tokens)
-		exit_error(NULL, NULL);
-	return (tokens);
-}
-
-static void	fill_tokens(char ***tokens, char **argv, int argc)
-{
-	int	i;
+	char	*joined;
+	int		i;
 
 	i = 1;
+	joined = ft_strdup("");
+	if (!joined)
+		exit_error(NULL, NULL);
 	while (i < argc)
 	{
-		tokens[i] = ft_split(argv[i], ' ');
-		if (!tokens[i])
+		joined = ft_strjoin(joined, argv[i]);
+		if (!joined)
+			exit_error(NULL, NULL);
+		joined = ft_strjoin(joined, " ");
+		if (!joined)
 			exit_error(NULL, NULL);
 		i++;
 	}
-	tokens[i] = NULL;
-}
-
-static int	is_duplicated(char ***tokens, int argc)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = i + 1;
-		while (j < argc)
-		{
-			if (compare_tokens(tokens[i], tokens[j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+	return (joined);
 }
 
 int	ft_check_duplicated(char **argv, int argc)
 {
-	char	***tokens;
-	int		result;
+	char	**tokens;
+	int		i;
+	int		j;
 
-	tokens = allocate_tokens(argc);
-	fill_tokens(tokens, argv, argc);
-	result = is_duplicated(tokens, argc);
-	free_tokens(tokens, argc);
-	return (result);
+	tokens = ft_split(join_args(argc, argv), ' ');
+	if (!tokens)
+		exit_error(NULL, NULL);
+	i = 0;
+	while (tokens[i])
+	{
+		j = 0;
+		while (tokens[j])
+		{
+			if (i != j && ft_strcmp(tokens[i], tokens[j]) == 0)
+			{
+				free_lst_memory(tokens);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	free_lst_memory(tokens);
+	return (0);
 }
+

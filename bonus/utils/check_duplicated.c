@@ -6,14 +6,14 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 10:18:23 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/28 14:28:32 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2024/01/02 10:05:42 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <checker.h>
 #include <push_swap.h>
 
-char	*join_args(int argc, char **argv)
+static char	*join_args(int argc, char **argv)
 {
 	char	*joined;
 	int		i;

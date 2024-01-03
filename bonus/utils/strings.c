@@ -6,7 +6,7 @@
 /*   By: jesmunoz <jesmunoz@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:04:50 by jesmunoz          #+#    #+#             */
-/*   Updated: 2023/12/18 12:51:39 by jesmunoz         ###   ########.fr       */
+/*   Updated: 2024/01/02 09:56:23 by jesmunoz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,4 @@ int	len(void *data)
 void	ft_putstr_fd(char *str, int fd)
 {
 	write(fd, str, len(str));
-}
-
-int	compare_tokens(char **tokens_i, char **tokens_j)
-{
-	int	k;
-	int	l;
-
-	k = 0;
-	while (tokens_i[k])
-	{
-		l = 0;
-		while (tokens_j[l])
-		{
-			if (ft_strcmp(tokens_i[k], tokens_j[l]) == 0)
-				return (1);
-			l++;
-		}
-		k++;
-	}
-	return (0);
 }
